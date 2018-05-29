@@ -1,12 +1,16 @@
-FROM alpine:3.2
+FROM alpine:latest
 
-MAINTAINER chrisdaish@gmail.com
+MAINTAINER android.florian@gmail.com
+
+ENV SQUID_VERSION=3.5.27-r0 \
+    SQUID_CACHE_DIR=/var/cache/squid \
+    SQUID_LOG_DIR=/var/log/squid \
+    SQUID_USER=squid
 
 RUN apk update \
-    && apk add squid=3.5.4-r2 \
+    && apk add squid=${SQUID_VERSION} \
     && apk add curl \
     && rm -rf /var/cache/apk/*
 
-COPY start-squid.sh /usr/local/bin/
-
-ENTRYPOINT ["/usr/local/bin/start-squid.sh"]
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]

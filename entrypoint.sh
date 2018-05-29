@@ -6,8 +6,8 @@ CHOWN=$(/usr/bin/which chown)
 SQUID=$(/usr/bin/which squid)
 
 # Ensure permissions are set correctly on the Squid cache + log dir.
-"$CHOWN" -R squid:squid /var/cache/squid
-"$CHOWN" -R squid:squid /var/log/squid
+"$CHOWN" -R ${SQUID_USER}:${SQUID_USER} ${SQUID_CACHE_DIR}
+"$CHOWN" -R ${SQUID_USER}:${SQUID_USER} ${SQUID_LOG_DIR}
 
 # Prepare the cache using Squid.
 echo "Initializing cache..."
